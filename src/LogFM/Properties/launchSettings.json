@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "LogFM": {
+      "commandName": "Project",
+      "commandLineArgs": "-s C:\\Temp\\Testing\\ -w -m -l"
+    }
+  }
+}
