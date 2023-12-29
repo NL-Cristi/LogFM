@@ -83,5 +83,62 @@ namespace LogFM
 
             return logEntries;
         }
+        
+        public static async Task ProcessFilesInDirectory(Options opts)
+        {
+            var filesToProcess = Directory.GetFiles(opts.InputDir)
+                .Where(file => Path.GetFileName(file).Contains(".log") && !Path.GetFileName(file).StartsWith("Formatted-"))
+                .ToList();
+            
+            Parallel.ForEach(filesToProcess, (currentFile) =>
+            {
+                string inputFile = currentFile;
+                string outputFile = opts.OutputFile ?? GenerateOutputFilePath(inputFile, opts.OutputDir);
+                if (opts.Overwrite)
+                {
+                    FormatLogEntriesInFileByDateTime(inputFile, outputFile, opts.SingleLine, opts.IncludeFilter, opts.ExcludeFilter);
+                }
+                else
+                {
+                    Console.WriteLine("Error: File Exists, use Overwrite option to override!!!");
+                }
+
+         
+            });
+            if (opts.Merge)
+            {
+                MergeFiles(opts.OutputDir);
+
+            }
+        }
+        private static void MergeFiles(string directoryPath)
+        {
+            var mergedFilePath = GenerateMergedLogFileName(directoryPath);
+            using var mergedFile = new StreamWriter(mergedFilePath, false); // Overwriting if file exists
+            foreach (var file in Directory.GetFiles(directoryPath))
+            {
+                string fileName = Path.GetFileName(file);
+                if (fileName.StartsWith("Formatted-") && file != mergedFilePath) // Only include files that start with "Formatted-"
+                {
+                    foreach (var line in File.ReadLines(file))
+                    {
+                        mergedFile.WriteLine(line);
+                    }
+                }
+            }
+        }
+
+        static string GenerateOutputFilePath(string inputFile, string outputFolder)
+        {
+            string fileName = $"Formatted-{Path.GetFileName(inputFile)}";
+            return outputFolder == null ? Path.Combine(Path.GetDirectoryName(inputFile), fileName)
+                : Path.Combine(outputFolder, fileName);
+        }
+        static string GenerateMergedLogFileName(string inputFolder)
+        {
+            string fileName = "Merged-Formatted.log";
+            return Path.Combine(inputFolder, fileName);
+        }
+
     }
 }

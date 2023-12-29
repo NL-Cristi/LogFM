@@ -33,5 +33,15 @@ namespace LogFM
 
             return formattedTime.Trim();
         }
+        public void PrintUsageInstructions()
+        {
+            PrintColoredMessage("Usage: FormatLog4Net.exe -i InputFilePath [-d InputDirPath] [-o OutputFilePath] [-v] [-w] [-m]", ConsoleColor.Yellow);
+        }
+        static void PrintColoredMessage(string message, ConsoleColor color)
+        {
+            Console.ForegroundColor = color;
+            Console.WriteLine(message);
+            Console.ResetColor();
+        }
     }
 }
