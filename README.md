@@ -1,5 +1,12 @@
+# ISSUE
 
-# LogFM Utility
+**You have a bunch of log files that start with dateTime and each event entry spans on multiple lines and you want ONE file to analyze faster.**
+
+## Context
+
+- You want a tool for people that dont play with **GREP** , **SED** and other **UNIX** utilies
+
+## Solution
 
 `LogFM` is a command-line tool designed for developers and technical teams to streamline the organization and analysis of `log4net` logs. 
 
@@ -13,8 +20,7 @@ With its focus on efficiency and ease of use, this utility offers the following 
 
 `LogFM` transforms log analysis from a painstaking task to a straightforward one, empowering your team to focus on what's important: the insights within the logs.
 
-
-# Why LogFM?
+## Why LogFM?
 
 `Save Time`: Spend less time formatting logs and more time leveraging the valuable data they contain.
 
@@ -23,9 +29,11 @@ With its focus on efficiency and ease of use, this utility offers the following 
 
 `Error Prevention`: By validating log formats before processing, our tool minimizes the risk of overlooking critical issues due to mis-formatted entries.
 
-`Streamlined Workflow`: 
+`Streamlined Workflow`:
 Whether you're dealing with a single file or multiple logs, "LogFM" integrates seamlessly into your workflow, offering both file and directory level operations.
-# The Result?
+
+## The Result?
+
 A more efficient, error-resistant, and simplified log analysis process that enhances your team's productivity and broadens your application's insight.
 
 Let `LogFM` take the lead in your log analysis process. 
