@@ -53,7 +53,22 @@ namespace LogFM
             // Check if input is provided
             if (string.IsNullOrWhiteSpace(InputFile) && string.IsNullOrWhiteSpace(InputDir))
             {
+                Console.ForegroundColor = ConsoleColor.Red;
+
                 Console.WriteLine("Error: Either an input file or an input directory must be provided.");
+                Console.ResetColor();
+                Console.WriteLine(@"-i, --input-file        Input logFile path.
+  -o, --output-file       Output file path.
+  -s, --input-dir         Source Directory where logs are.
+  -d, --output-dir        Target Directory where formatted files will be saved.
+  -l, --single-line       (Default: false) Each LogEntry on one Line
+  -m, --merge             (Default: false) Merge all files from inputDir to one MERGED LOG.
+  -w, --over-write        (Default: false) Overwrite the output file if it exists.
+  -f, --include-filter    (Default: ) Filter to include specific log entries.
+  -e, --exclude-filter    (Default: ) Filter to exclude specific log entries.
+  -v, --verbose           Set output to verbose.
+  --help                  Display this help screen.
+  --version               Display version information.");
                 return false;
             }
 
@@ -87,10 +102,10 @@ namespace LogFM
             // If merge option is selected, ensure OutputDir is specified
             if (Merge && string.IsNullOrWhiteSpace(OutputDir) && !string.IsNullOrWhiteSpace(InputDir))
             {
-                OutputDir= InputDir;
+                OutputDir = InputDir;
                 return true;
             }
-            
+
             return true;
         }
         static string GetfullFormattedFilePath(string fullPath)
